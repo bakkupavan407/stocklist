@@ -1,0 +1,14 @@
+#login-form-container {
+  background-color: #eee;
+  padding: 0px 30px 30px 30px;
+  position: absolute;
+  top: 30%;
+  right: 0;
+  left: 0;
+}
+
+h2 {
+  color: #900000;
+  margin-bottom: 40px;
+  text-align: center;
+}

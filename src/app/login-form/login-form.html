@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="row">
+      <div id="logo-container"></div>
+      <div id="login-form-container" class="col-sm-12 col-md-10 col-md-offset-1 col-lg-4 col-lg-offset-4">
+        <form action="" id="loginForm">
+          <div class="row">
+            <div class="col-lg-12">
+              <h2>Login</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div *ngIf="error" class="alert alert-danger">
+                {{error}}
+              </div>
+            </div>
+          </div>
+          <div class="form-group input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <input class="form-control" type="text" name='username' placeholder="username"
+              [(ngModel)]="user.username"/>          
+          </div>
+          <div class="form-group input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+            <input class="form-control" type="password" name='password' placeholder="password"
+              [(ngModel)]="user.password"/>     
+          </div>
+          <div class="form-group">
+            <button type="button" class="btn btn-danger btn-block"
+              (click)="btnClickLogin()">
+              Login
+            </button>
+          </div>
+          <div class="form-group text-center">
+            <a href="#">Forgot Password</a>&nbsp;|&nbsp;<a href="#">Support</a>
+          </div>
+        </form>        
+      </div>  
+  </div>
+</div>
+<!-- <div class="login-form-1">
+    <form id="login-form" class="text-left">
+      <div class="login-form-main-message"></div>
+      <div class="main-login-form">
+        <div class="login-group">
+          <div class="form-group">
+            <label for="lg_username" class="sr-only">Username</label>
+            <input type="text" class="form-control" id="lg_username" name="lg_username" placeholder="username">
+          </div>
+          <div class="form-group">
+            <label for="lg_password" class="sr-only">Password</label>
+            <input type="password" class="form-control" id="lg_password" name="lg_password" placeholder="password">
+          </div>
+          <div class="form-group login-group-checkbox">
+            <input type="checkbox" id="lg_remember" name="lg_remember">
+            <label for="lg_remember">remember</label>
+          </div>
+        </div>
+        <button type="button" class="login-button btn btn-success" (click)="btnClickLogin()" >
+          Login<i class="fa fa-chevron-right"></i>
+        </button>
+      </div>
+      <div class="etc-login-form">
+        <p>forgot your password? <a href="#">click here</a></p>
+        <p>new user? <a href="#">create new account</a></p>
+      </div>
+    </form>
+  </div> -->

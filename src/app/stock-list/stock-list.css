@@ -1,0 +1,29 @@
+#stock-nav {
+	background-color: #d0ccae;
+	/*#dad3a0;*/
+	color: #900000;
+}
+
+#stock-nav a{
+	color: #900000;
+}
+
+#stock-nav .active {
+	background-color: #900000;
+    color: #fff;
+}
+
+#stock-nav a:hover {
+	background-color: #900000;
+    color: #fff;
+}
+
+.lblWelcomeMsg {
+	margin-top: 15px;
+}
+
+#stock-entry-form h3 {
+	color: #900000;
+	text-align: center;
+	/*margin-left: 54px;*/
+}
