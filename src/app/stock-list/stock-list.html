@@ -1,81 +1,18 @@
 <nav id="stock-nav" class="navbar navbar-default">
   <div class="container-fluid">
     <ul class="nav navbar-nav">
-      <li><a class="active" routerLink="stockentry">Stock-Cash Market Data Entry</a></li>
-      <li><a routerLink="allstocks">All Stocks</a></li>
+      <li>
+      	<a [routerLink]="['stockentry']" routerLinkActive="active">Stock-Cash Market Data Entry</a>
+      </li>
+      <li>
+      	<a [routerLink]="['allstocks']" routerLinkActive="active">All Stocks</a>
+      </li>
     </ul>
     <ul class="nav navbar-nav pull-right">
-      <li><a routerLink="/login">Logout</a></li>
+      <li><a (click)="btnClickLogout()" routerLink="/login">Logout</a></li>
       <li class="lblWelcomeMsg"><span>Welcome </span> <strong>Admin</strong></li>
     </ul>
   </div>
 </nav>
-<!-- <router-outlet name="dashboard"></router-outlet> -->
 
-<div class="container">
-	<div class="row">
-		<div class="col-lg-4 col-lg-offset-4">
-			<form name="stock-entry-form" id="stock-entry-form">
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="form-group input-group">
-							<h3>Stock-Cash Market Data Entry</h3>
-						</div>
-					</div>
-				</div>
-				<div class="form-group input-group">
-		            <span class="input-group-addon"><i class="glyphicon glyphicon-date"></i></span>
-		            <input class="form-control" type="date" name="date" id="date" placeholder="Choose Date"
-		            	required [(ngModel)]="stock.date"/>
-	          	</div>
-	          	<div class="form-group">
-	          		<select name="selectExchanges" [(ngModel)]="stock.selectedExchange" class="form-control"
-	          			disabled>
-						<option *ngFor="let exchange of exchanges" [ngValue]="exchange.id">
-								{{exchange.name}}
-						</option>
-					</select>
-		            <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-date"></i></span> -->
-		            <!-- <select  class="form-control" disabled="" required>
-		            	<option>Select Exchange</option>
-		            	<option>Bombay</option>
-		            	<option>National</option>
-		            	<option selected="">National Stock Exchange(NSE)</option>
-		            </select> -->
-	          	</div>
-	          	<div class="form-group">
-	          		<select name="selectedSecurity" [(ngModel)]="stock.selectedSecurity" class="form-control"
-	          			disabled>
-						<option *ngFor="let security of securities" [ngValue]="security.id">
-								{{security.name}}
-						</option>
-					</select>
-		            <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-date"></i></span> -->
-		            <!-- <select class="form-control" disabled="" required>
-		            	<option>Select Security</option>
-		            	<option selected="">Reliance Industries</option>
-		            </select> -->
-	          	</div>
-					<!-- <select name="sele" [(ngModel)]="selectedValue">
-						<option *ngFor="let c of countries" [ngValue]="c">{{c.name}}</option>
-					</select> -->
-	          	<div class="form-group input-group">
-		            <span class="input-group-addon"><i class="glyphicon glyphicon-date"></i></span>
-		            <input class="form-control" type="text" name='marketprice' placeholder="Cash Market Price"	 [(ngModel)]="stock.marketprice" required />
-	          	</div>
-	          	<div class="form-group">
-					<button type="button" class="btn btn-danger btn-block"
-						(click)="btnClickSaveStockList()">
-					Stock Entry
-					</button>
-	          	</div>
-	          	<div class="form-group">
-					<button type="button" class="btn btn-warning btn-block"
-						(click)="btnClickCancelStockList()">
-					Cancel
-					</button>
-	          	</div>
-			</form>
-		</div>
-	</div>
-</div>
+<router-outlet></router-outlet>

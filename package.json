@@ -12,6 +12,9 @@
   },
   "private": true,
   "dependencies": {
+    "ag-grid": "^14.0.0",
+    "ag-grid-enterprise": "^14.0.0",
+    "ag-grid-angular": "^14.0.0",
     "@angular/animations": "^5.1.0",
     "@angular/cdk": "^5.0.0",
     "@angular/common": "^5.0.0",
@@ -34,6 +37,7 @@
     "@types/jasmine": "~2.5.53",
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "~6.0.60",
+    "ag-grid": "^14.2.0",
     "codelyzer": "~3.2.0",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",

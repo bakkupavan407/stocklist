@@ -18,6 +18,7 @@ export class LogInComponent {
     this.user = {};
     this.error = '';
 		this.router = router;
+    localStorage.removeItem('currentUser');
 	}
 
 	private btnClickLogin():void {
