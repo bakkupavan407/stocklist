@@ -5,8 +5,8 @@ import 'rxjs/add/operator/map'
 
 @Injectable()
 export class StockService {
-    // https://appstockslist.herokuapp.com/
-    public serviceUrl: string = "http://localhost:4000/";
+    public serviceUrl: string = "https://appstockslist.herokuapp.com/";
+    // public serviceUrl: string = "http://localhost:4000/";
     public token: string;
     public currentUser: any;
     public headers: Headers;
@@ -21,6 +21,14 @@ export class StockService {
 
     savestocks(stockdata: any): Observable<any> {
         return this.http.post( this.serviceUrl + "api/v1/savestocks", stockdata, {headers: this.headers})
+            .map((response: Response) => {
+                response = response.json();
+                return response["data"];
+            });
+    }
+
+    getstocks(): Observable<any> {
+        return this.http.get( this.serviceUrl + "api/v1/getstocks", {headers: this.headers})
             .map((response: Response) => {
                 response = response.json();
                 return response["data"];

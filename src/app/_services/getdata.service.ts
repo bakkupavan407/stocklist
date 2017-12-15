@@ -5,8 +5,8 @@ import 'rxjs/add/operator/map'
 
 @Injectable()
 export class GetDataService {
-    // https://appstockslist.herokuapp.com/
-    public serviceUrl: string = "http://localhost:4000/";
+    public serviceUrl: string = "https://appstockslist.herokuapp.com/";
+    // public serviceUrl: string = "http://localhost:4000/";
     public token: string;
     public currentUser: any;
     public headers: Headers;
