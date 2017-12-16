@@ -10,12 +10,12 @@ import { StockService } from '../_services/stocks.service';
   styleUrls: ['./stock-entry.css']
 })
 export class StockEntryComponent {
-	private exchanges: any;
+	public exchanges: any;
 	private selectedExchange: number;
-	private securities: any;
+	public securities: any;
 	private selectedSecurity: number;
-	private stock: any;
-	private showInfoMsg: string = "";
+	public stock: any;
+	public showInfoMsg: string = "";
 
 	constructor(private getdataservice: GetDataService, private stockservice: StockService){
 		this.stock = {};
@@ -33,7 +33,7 @@ export class StockEntryComponent {
             });
 	}
 
-	private btnClickSaveStockList():void {
+	public btnClickSaveStockList():void {
     	this.stock.date = new Date(this.stock.date);
     	this.stockservice.savestocks(this.stock)
     		.subscribe(result => {
@@ -45,4 +45,8 @@ export class StockEntryComponent {
                 }, 4000);
     		});
 	}
+
+    public btnClickCancelStockList():void {
+        this.stock = {};
+    }
 }

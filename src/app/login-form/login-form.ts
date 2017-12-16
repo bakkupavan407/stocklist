@@ -9,10 +9,10 @@ import { AuthenticationService } from '../_services/authentication.service';
   styleUrls: ['./login-form.css']
 })
 export class LogInComponent {
-  private user: any;
-  private username: string;
-  private password: string;
-  private error: string;
+  public user: any;
+  public username: string;
+  public password: string;
+  public error: string;
 
 	constructor(private router: Router, private authenticationService: AuthenticationService) { 
     this.user = {};
@@ -21,7 +21,7 @@ export class LogInComponent {
     localStorage.removeItem('currentUser');
 	}
 
-	private btnClickLogin():void {
+	public btnClickLogin():void {
     this.username = this.user.username;
     this.password = this.user.password;
 

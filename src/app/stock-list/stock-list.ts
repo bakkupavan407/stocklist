@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 
 export class StockListComponent{
-  private btnClickLogout():void{
+  public btnClickLogout():void{
     localStorage.removeItem('currentUser');
   }
 }

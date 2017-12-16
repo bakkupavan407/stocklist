@@ -11,10 +11,10 @@ import { StockService } from '../_services/stocks.service';
 })
 export class AllStocksComponent {
 
-    private columnDefs;
-    private rowData;
-    private editType;
-    private gridOptions: GridOptions = {
+    public columnDefs;
+    public rowData;
+    public editType;
+    public gridOptions: GridOptions = {
       //suppressRowClickSelection: true,
       rowHeight: 42,
       headerHeight: 45,
@@ -27,7 +27,7 @@ export class AllStocksComponent {
     };
     private api: GridApi;
     private columnApi: ColumnApi;
-    private components;
+    public components;
     private exchanges; any;
 
     constructor(private getdataservice: GetDataService, private stockservice: StockService) {
@@ -87,7 +87,7 @@ export class AllStocksComponent {
         // this.components = { datePicker: getDatePicker() };
     }
 
-    private onReady(params) {
+    public onReady(params) {
       this.api = params.api;
       this.columnApi = params.columnApi;
     }
