@@ -28,11 +28,17 @@ export class AllStocksComponent {
     private api: GridApi;
     private columnApi: ColumnApi;
     private components;
+    private exchanges; any;
 
     constructor(private getdataservice: GetDataService, private stockservice: StockService) {
         this.stockservice.getstocks()
             .subscribe(result => {
                 this.rowData = result;
+            });
+
+        this.getdataservice.getexchanges()
+            .subscribe(result => {
+                this.exchanges = result;
             });
         // this.rowData = [{"_id":"5a310427d4319c04d96f1a93","selectedExchange":"5a2d8cda734d1d2932344c8d","selectedSecurity":"5a30c4b5734d1d2932368f1b","date":"2017-12-13T00:00:00.000Z","marketprice":"400","userid":"5a2d511b734d1d29323436de","timestamp":"2017-12-13T10:42:47.606Z"},{"_id":"5a3110b6d2c3620cb10a510e","selectedExchange":"5a2d8cda734d1d2932344c8d","selectedSecurity":"5a30c4b5734d1d2932368f1b","date":"2017-12-14T00:00:00.000Z","marketprice":"567","userid":"5a2d511b734d1d29323436de","timestamp":"2017-12-13T11:36:22.852Z"},{"_id":"5a311285d2c3620cb10a510f","selectedExchange":"5a2d8cda734d1d2932344c8d","selectedSecurity":"5a30c4b5734d1d2932368f1b","date":"2017-12-13T00:00:00.000Z","marketprice":"443","userid":"5a2d511b734d1d29323436de","timestamp":"2017-12-13T11:44:05.606Z"},{"_id":"5a311538d2c3620cb10a5110","selectedExchange":"5a2d8cda734d1d2932344c8d","selectedSecurity":"5a30c4b5734d1d2932368f1b","date":"2017-12-13T00:00:00.000Z","marketprice":"34","userid":"5a2d511b734d1d29323436de","timestamp":"2017-12-13T11:55:36.214Z"},{"_id":"5a31168eed061b0014be5049","selectedExchange":"5a2d8cda734d1d2932344c8d","selectedSecurity":"5a30c4b5734d1d2932368f1b","date":"2017-12-13T00:00:00.000Z","marketprice":"999","userid":"5a2d511b734d1d29323436de","timestamp":"2017-12-13T12:01:18.895Z"}];
         
@@ -44,13 +50,14 @@ export class AllStocksComponent {
                 checkboxSelection: true
             },
             {
+              width: 200,
               headerName: "Date",
               field: "date",
               editable: true
             },
             {
               headerName: "Exchange", 
-              field: "selectedExchange", 
+              field: "exchange", 
               width: 200,
               editable: true,
               cellEditor: "select",
@@ -60,7 +67,7 @@ export class AllStocksComponent {
              },
             {
               headerName: "Security", 
-              field: "selectedSecurity", 
+              field: "security", 
               width: 200, 
               editable: true,
               cellEditor: "select",
