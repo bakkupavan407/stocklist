@@ -47,7 +47,7 @@ const appRoutes: Routes = [
     AgGridModule.withComponents([ ]),
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: false } // <-- debugging purposes only
+      { useHash: true }
     )
   ],
   providers: [AuthenticationService, GetDataService, StockService],
