@@ -23,6 +23,7 @@ import { AllStocksComponent } from './all-stocks/all-stocks';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FiltersComponent } from './filters/filters.component';
+import { FieldErrorDisplayComponent } from './field-error-display/field-error-display.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LogInComponent },
@@ -60,7 +61,8 @@ const appRoutes: Routes = [
     AllStocksComponent,
     RegistrationFormComponent,
     DashboardComponent,
-    FiltersComponent
+    FiltersComponent,
+    FieldErrorDisplayComponent
   ],
   imports: [
     HttpModule,
