@@ -3,11 +3,11 @@
     <ul class="nav navbar-nav">
       <li>
       	<!-- <span>Use filter to explore graphs</span> -->
-      	<a [routerLink]="['dashboard']" routerLinkActive="active">Filters</a>
+      	<a [routerLink]="['dashboard']" routerLinkActive="active">Stock Data</a>
       </li>
     </ul>
     <ul class="nav navbar-nav pull-right">
-    	<li class="lblWelcomeMsg" style="margin-top: 17px;"><span>Welcome </span> User</li>
+    	<li class="lblWelcomeMsg" style="margin-top: 17px;"><span>Welcome </span><strong> {{fullname}}</strong></li>
       	<li><a (click)="btnClickLogout()" routerLink="/login">Logout</a></li>
     </ul>
   </div>

@@ -18,24 +18,42 @@ export class StockEntryComponent {
 	public showSuccMsg: string = "";
     public showErrorMsg: string = "";
 
-	constructor(private getdataservice: GetDataService, private stockservice: StockService){
+	constructor(private getdataservice: GetDataService, private stockservice: StockService, private router: Router){
 		this.stock = {};
-		this.stock.selectedExchange = "5a2d8cda734d1d2932344c8d";
-		this.stock.selectedSecurity = "5a30c4b5734d1d2932368f1b";
+		this.stock.selectedExchange = 1; //"5a2d8cda734d1d2932344c8d";
+		this.stock.selectedSecurity = 1; //"5a30c4b5734d1d2932368f1b";
 
 		this.getdataservice.getexchanges()
             .subscribe(result => {
-                this.exchanges = result;
+                if(result) {
+                    result.unshift({
+                        _id: 1,
+                        name: "Select Exchange"
+                    });
+                    this.exchanges = result;
+                } else {
+                    // this.router.navigate(['/login']);
+                    window.location.href = "/login";
+                }
             });
 
     	this.getdataservice.getsecurities()
             .subscribe(result => {
-                this.securities = result;
+                if(result) {
+                    result.unshift({
+                        _id: 1,
+                        securityname: "Select Security"
+                    });
+                    this.securities = result;
+                } else {
+                    window.location.href = "/login";
+                }
             });
 	}
 
 	public btnClickSaveStockList():void {
-    	this.stock.date = new Date(this.stock.date);
+        this.stock.marketprice = +(this.stock.marketprice);
+        this.stock.date = this.stock.date.split("-").join("/");
     	this.stockservice.savestocks(this.stock)
     		.subscribe(result => {
                 if(result ) {

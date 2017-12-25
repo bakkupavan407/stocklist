@@ -23,10 +23,11 @@ export class GetDataService {
         return this.http.get( this.serviceUrl + "api/v1/getexchanges" , {headers: this.headers})
             .map((response: Response) => {
                 response = response.json();
-                if(response) {
+                if(response["error"]) {
+                    return false;
+                } else {
                     return response["data"];
                 }
-                return response;
             });
     }
 
@@ -37,7 +38,6 @@ export class GetDataService {
                 if(response) {
                     return response["data"];
                 }
-                return response;
             });
     }
 
@@ -48,7 +48,6 @@ export class GetDataService {
                 if(response) {
                     return response["data"];
                 }
-                return response;
             });
     }
 
@@ -59,7 +58,6 @@ export class GetDataService {
                 if(response) {
                     return response["data"];
                 }
-                return response;
             });
     }
 

@@ -29,16 +29,14 @@
 		            	required [(ngModel)]="stock.date"/>
 	          	</div>
 	          	<div class="form-group">
-	          		<select name="selectExchanges" [(ngModel)]="stock.selectedExchange" class="form-control"
-	          			disabled>
+	          		<select name="selectExchanges" [(ngModel)]="stock.selectedExchange" class="form-control" >
 						<option *ngFor="let exchange of exchanges" [ngValue]="exchange._id">
 								{{exchange.name}}
 						</option>
 					</select>
 	          	</div>
 	          	<div class="form-group">
-	          		<select name="selectedSecurity" [(ngModel)]="stock.selectedSecurity" class="form-control"
-	          			disabled>
+	          		<select name="selectedSecurity" [(ngModel)]="stock.selectedSecurity" class="form-control" >
 						<option *ngFor="let security of securities" [ngValue]="security._id">
 								{{security.securityname}}
 						</option>

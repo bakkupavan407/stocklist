@@ -20,13 +20,12 @@ export class FilterService {
     }
 
     getfilterdata(data): Observable<any> {
-        return this.http.post( this.serviceUrl + "getfilterdata" , data, {headers: this.headers})
+        return this.http.post( this.serviceUrl + "getfilterdata", data, {headers: this.headers})
             .map((response: Response) => {
                 response = response.json();
                 if(response) {
                     return response["data"];
                 }
-                return response;
             });
     }
 
