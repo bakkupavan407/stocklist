@@ -11,8 +11,15 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-12">
-						<div *ngIf="showInfoMsg" class="alert alert-info">
-							{{showInfoMsg}}
+						<div *ngIf="showSuccMsg" class="alert alert-success">
+							{{showSuccMsg}}
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<div *ngIf="showErrorMsg" class="alert alert-danger">
+							{{showErrorMsg}}
 						</div>
 					</div>
 				</div>

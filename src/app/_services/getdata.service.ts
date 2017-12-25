@@ -41,4 +41,26 @@ export class GetDataService {
             });
     }
 
+    getuserexchanges(): Observable<any> {
+        return this.http.get( this.serviceUrl + "getuserexchanges" , {headers: this.headers})
+            .map((response: Response) => {
+                response = response.json();
+                if(response) {
+                    return response["data"];
+                }
+                return response;
+            });
+    }
+
+    getusersecurities(): Observable<any> {
+        return this.http.get( this.serviceUrl + "getusersecurities" , {headers: this.headers})
+            .map((response: Response) => {
+                response = response.json();
+                if(response) {
+                    return response["data"];
+                }
+                return response;
+            });
+    }
+
 }

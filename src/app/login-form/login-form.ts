@@ -28,9 +28,13 @@ export class LogInComponent {
     if(this.username && this.password) {
       this.authenticationService.login(this.username, this.password)
             .subscribe(result => {
-                if (result === true) {
+                if (result) {
                     this.user = {};
-                    this.router.navigate(['/home']);
+                    if(result.role === "user") {
+                      this.router.navigate(['/dashboard']);
+                    } else if(result.role === "admin") {
+                      this.router.navigate(['/home']);
+                    }
                 } else {
                     this.error = "Username or password is incorrect";
                 }

@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="row">
+      <div id="user-filter-form-container" class="col-lg-12">
+      	<div class="row">
+      		<div class="col-lg-4">
+      			<form action="" id="user-filter-form-container">
+			          <div class="row">
+			            <div class="col-lg-12">
+			              <h2 class="dashboard-head">Select Filters</h2>
+			            </div>
+			          </div>
+			          <div class="form-group input-group">
+			            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+			            <input class="form-control" type="date" name='fromdate' placeholder="From Date"
+			              [(ngModel)]="filter.fromdate"/>
+			          </div>
+			          <div class="form-group input-group">
+			            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+			            <input class="form-control" type="date" name='todate' placeholder="To Date"
+			              [(ngModel)]="filter.todate"/>
+			          </div>
+			          <div class="form-group">
+			          		<select name="selectExchanges" [(ngModel)]="filter.selectedExchange" class="form-control" disabled>
+								<option *ngFor="let exchange of exchanges" [ngValue]="exchange._id">
+										{{exchange.name}}
+								</option>
+							</select>
+			          	</div>
+			          	<div class="form-group">
+			          		<select name="selectedSecurity" [(ngModel)]="filter.selectedSecurity" class="form-control" disabled>
+								<option *ngFor="let security of securities" [ngValue]="security._id">
+										{{security.securityname}}
+								</option>
+							</select>
+			          	</div>
+			      		
+			          <div class="form-group">
+			            <button type="button" class="btn btn-danger btn-block"
+			              (click)="btnFilterGo()">
+			              Go
+			            </button>
+			          </div>
+			        </form>
+      		</div>
+      		<div class="col-lg-8" *ngIf="loadChart">
+			    <div style="display: block;">
+				    <canvas baseChart width="400" height="280"
+		                [datasets]="lineChartData"
+		                [labels]="lineChartLabels"
+		                [options]="lineChartOptions"
+		                [colors]="lineChartColors"
+		                [legend]="lineChartLegend"
+		                [chartType]="lineChartType"
+		                (chartHover)="chartHovered($event)"
+		                (chartClick)="chartClicked($event)">
+	                </canvas>
+			    </div>
+      		</div>
+
+      	</div>
+              
+      </div>  
+  </div>
+</div>

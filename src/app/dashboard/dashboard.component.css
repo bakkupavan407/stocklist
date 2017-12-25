@@ -1,0 +1,29 @@
+#stock-nav-user {
+	background-color: #F8F8F8;
+	/*#d0ccae;*/
+	/*#dad3a0;*/
+	color: #900000;
+}
+
+#stock-nav-user .container-fluid {
+	padding: 0;
+}
+
+#stock-nav-user a{
+	color: #900000;
+}
+
+#stock-nav-user .active {
+	background-color: #900000;
+    color: #fff;
+}
+
+#stock-nav-user a:hover {
+	background-color: #900000;
+    color: #fff;
+}
+
+.dashboard-head {
+	font-size: 18px;
+	color: #900000;
+}

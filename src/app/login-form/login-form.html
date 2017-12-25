@@ -26,13 +26,14 @@
               [(ngModel)]="user.password"/>     
           </div>
           <div class="form-group">
-            <button type="button" class="btn btn-danger btn-block"
+            <button type="button" class="btn btn-warning btn-block"
               (click)="btnClickLogin()">
               Login
             </button>
           </div>
           <div class="form-group text-center">
-            <a href="#">Forgot Password</a>&nbsp;|&nbsp;<a href="#">Support</a>
+            <!-- <a href="#">Forgot Password</a>&nbsp;|&nbsp;<a href="#">Support</a> -->
+            <a routerLink ="/register" routerLinkActive="active">Register Now</a>&nbsp;|&nbsp;<a routerLink ="/forgotpassword" routerLinkActive="active">Forgot Password</a>
           </div>
         </form>        
       </div>  
