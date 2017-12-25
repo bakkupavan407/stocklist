@@ -15,7 +15,8 @@ export class StockEntryComponent {
 	public securities: any;
 	private selectedSecurity: number;
 	public stock: any;
-	public showInfoMsg: string = "";
+	public showSuccMsg: string = "";
+    public showErrorMsg: string = "";
 
 	constructor(private getdataservice: GetDataService, private stockservice: StockService){
 		this.stock = {};
@@ -37,12 +38,16 @@ export class StockEntryComponent {
     	this.stock.date = new Date(this.stock.date);
     	this.stockservice.savestocks(this.stock)
     		.subscribe(result => {
-                this.stock.date = "";
-                this.stock.marketprice = "";
-    			this.showInfoMsg = "Stock data saved successfully.";
-                setTimeout(() => {
-                    this.showInfoMsg = "";
-                }, 4000);
+                if(result ) {
+                    this.stock.date = "";
+                    this.stock.marketprice = "";
+                    this.showSuccMsg = "Stock data saved successfully.";
+                    setTimeout(() => {
+                        this.showSuccMsg = "";
+                    }, 4000);
+                } else {
+                    this.showErrorMsg = "Connection problem. Please try again.";
+                }
     		});
 	}
 
