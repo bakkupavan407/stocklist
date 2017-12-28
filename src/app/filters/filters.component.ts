@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { GetDataService } from '../_services/getdata.service';
 import { FilterService } from '../_services/filter.service';
 import { BaseChartDirective } from 'ng2-charts/ng2-charts';
+import { DatepickerOptions } from 'ng2-datepicker/bundles/ng2-datepicker.umd';
+import * as enLocale from 'date-fns/locale/en';
+import * as frLocale from 'date-fns/locale/fr';
 
 @Component({
   selector: 'app-filters',
@@ -31,10 +34,22 @@ export class FiltersComponent implements OnInit {
 	public lineChartLegend;
 	public lineChartType;
 
+	public showErrorMsg: string = "";
+
+	public labelExchange: string;
+	public labelSecurity: string;
+
+	options: DatepickerOptions = {
+		displayFormat: 'DD/MM/YYYY'
+	};
+
 	constructor(private getdataservice: GetDataService, private filterservice: FilterService) {
 		this.filter = {};
+		this.filter.fromdate = new Date();
+		this.filter.todate = new Date();
 		this.filter.selectedExchange = 1;
 		this.filter.selectedSecurity = 1;
+
 		this.getdataservice.getuserexchanges()
             .subscribe(result => {
                 if(result) {
@@ -62,40 +77,57 @@ export class FiltersComponent implements OnInit {
                 }
             });
 
-        this.filterservice.getfilterdata(this.filter)
-			.subscribe(result => {
-				result.forEach(item=> {
-					let price = item.marketprice;
-					let mydate = new Date(item.date);
-		   			item.date = mydate.getFullYear() + "-" + ( mydate.getMonth() + 1) + "-" + mydate.getDate();
-                  	this.filterDates.push(item.date);
-                  	this.filterPrice.push(item.marketprice);
-                });
-                this.lineChartData = [
-					{data: this.filterPrice, label: ''},
-				];
-				this.lineChartLabels = this.filterDates;
-				this.loadChartOptions();
-				this.loadChart = true;
-			});
+   //      this.filterservice.getfilterdata(this.filter)
+			// .subscribe(result => {
+			// 	result.forEach(item=> {
+			// 		let price = item.marketprice;
+			// 		let mydate = new Date(item.date);
+		 //   			item.date = mydate.getFullYear() + "-" + ( mydate.getMonth() + 1) + "-" + mydate.getDate();
+   //                	this.filterDates.push(item.date);
+   //                	this.filterPrice.push(item.marketprice);
+   //              });
+   //              this.lineChartData = [
+			// 		{data: this.filterPrice, label: ''},
+			// 	];
+			// 	this.lineChartLabels = this.filterDates;
+			// 	this.loadChartOptions();
+			// 	this.loadChart = true;
+			// });
 	}
 
 	ngOnInit() {
 		
 	}
 
+	public setSelected(selectElement) {
+		var selector = selectElement.name;
+		for (var i = 0; i < selectElement.options.length; i++) {
+            var optionElement = selectElement.options[i];
+            if (optionElement.selected == true) { 
+            	if(selector === "selectedSecurity") {
+            		this.labelSecurity = optionElement.text;	
+            	} else {
+            		this.labelExchange = optionElement.text;
+            	}
+            }
+        }
+	}
+
 	public btnFilterGo(): void {
-		this.lineChartData = [];
-		this.lineChartLabels = [];
-		this.chart.chart.config.data.labels = [];
+		// this.lineChartData = [];
+		// this.lineChartLabels = [];
+		// this.chart.chart.config.data.labels = [];
+		if(this.filter.fromdate && this.filter.todate && (this.filter.selectedExchange !== 1) && (this.filter.selectedSecurity !== 1)) {
+			var fromdate = new Date(this.filter.fromdate);
+			var todate = new Date(this.filter.todate);
+			var labelFromDate = fromdate.getDate() + "/" + ( fromdate.getMonth() + 1) + "/" + fromdate.getFullYear();
+			var labelToDate = todate.getDate() + "/" + ( todate.getMonth() + 1) + "/" + todate.getFullYear();
+			this.filter.fromdate = fromdate.getFullYear() + "/" + ( fromdate.getMonth() + 1) + "/" + fromdate.getDate();
+			this.filter.todate = todate.getFullYear() + "/" + ( todate.getMonth() + 1) + "/" + todate.getDate();
+			// this.filter.fromdate = this.filter.fromdate.split("-").join("/");
+			// this.filter.todate = this.filter.todate.split("-").join("/");
 
-		this.ds = [];
-		this.ps = [];
-
-		this.filter.fromdate = this.filter.fromdate.split("-").join("/");
-		this.filter.todate = this.filter.todate.split("-").join("/");
-
-		this.filterservice.getfilterdata(this.filter)
+			this.filterservice.getfilterdata(this.filter)
 			.subscribe(result => {
 				if(result.length > 0) {
 					result.forEach(item=> {
@@ -106,12 +138,20 @@ export class FiltersComponent implements OnInit {
 	                  	this.ps.push(item.marketprice);
 	                });
 
-	                this.lineChartData = this.ps;
-					this.chart.chart.config.data.labels = this.ds;
+					this.lineChartData = [
+						{data: this.ps, label: this.labelSecurity + " on " + this.labelExchange + " from " + labelFromDate + " to " + labelToDate}
+					];
+	    			this.lineChartLabels = this.ds;
+					// this.chart.chart.config.data.labels = this.ds;
+					this.loadChartOptions();
+					this.loadChart = true;
 				} else {
 					alert("No stock data with this combination.");					
 				}
 			});
+		} else {
+			this.showErrorMsg = "All fields below are required.";
+		}
 	}
 
 	public loadChartOptions(): void {

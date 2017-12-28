@@ -1,30 +1,71 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { FormBuilder, FormGroup, FormsModule, FormControl, Validators , ReactiveFormsModule} from '@angular/forms';
 import { AuthenticationService } from '../_services/authentication.service';
+import { NgModule } from '@angular/core';
 
 @Component({
   selector: 'login-form',
   templateUrl: './login-form.html',
   styleUrls: ['./login-form.css']
 })
-export class LogInComponent {
+export class LogInComponent implements OnInit {
   public user: any;
   public username: string;
   public password: string;
   public error: string;
+  loginForm : FormGroup;
+  promiseSetBySomeAction;
 
-	constructor(private router: Router, private authenticationService: AuthenticationService) { 
+	constructor(private router: Router, private authenticationService: AuthenticationService, private formBuilder: FormBuilder) { 
     this.user = {};
     this.error = '';
 		this.router = router;
 	}
 
-	public btnClickLogin():void {
-    this.username = this.user.username;
-    this.password = this.user.password;
+  ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      email: [null, Validators.required],
+      password: [null, Validators.required]
+    });
+  }
 
-    if(this.username && this.password) {
+   isFieldValid(field: string) {
+      return !this.loginForm.get(field).valid && this.loginForm.get(field).touched;
+    }
+
+    displayFieldCss(field: string) {
+      return {
+        'has-error': this.isFieldValid(field),
+        'has-feedback': this.isFieldValid(field)
+      };
+    }
+
+    validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
+  }
+
+  public makeDefaultBtn(element) {
+    element.textContent = "Login";
+    element.disabled = false;
+  }
+
+	public btnClickLogin(element, text):void {
+    if(this.loginForm.valid) {
+      element.textContent = text;
+      element.disabled = true;
+
+      this.username = this.user.email;
+      this.password = this.user.password;
+
       this.authenticationService.login(this.username, this.password)
             .subscribe(result => {
                 if (result) {
@@ -35,11 +76,12 @@ export class LogInComponent {
                       this.router.navigate(['/home']);
                     }
                 } else {
-                    this.error = "Username or password is incorrect";
+                  this.makeDefaultBtn(element);
+                  this.error = "Please login with valid details.";
                 }
             });
     } else {
-      this.error = "Username and Password are required!";
+      this.validateAllFormFields(this.loginForm);
     }
 
 	}

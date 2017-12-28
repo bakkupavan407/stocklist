@@ -5,7 +5,7 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="form-group input-group">
-							<h3>Stock-Cash Market Data Entry</h3>
+							<h5>Stock-Cash Market Data Entry</h5>
 						</div>
 					</div>
 				</div>
@@ -23,12 +23,14 @@
 						</div>
 					</div>
 				</div>
-				<div class="form-group input-group">
-		            <span class="input-group-addon"><i class="glyphicon glyphicon-date"></i></span>
-		            <input class="form-control" type="date" name="date" id="date" placeholder="Choose Date"
-		            	required [(ngModel)]="stock.date"/>
+				<div class="form-group">
+		            <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-date"></i></span> -->
+		            <ng-datepicker [(ngModel)]="stock.date" [options]="options" name="todate"
+              			style="position: absolute; z-index: 9;"></ng-datepicker>
+		            <!-- <input class="form-control" type="date" name="date" id="date" placeholder="Choose Date"
+		            	required [(ngModel)]="stock.date"/> -->
 	          	</div>
-	          	<div class="form-group">
+	          	<div class="form-group" style="margin-top: 45px;">
 	          		<select name="selectExchanges" [(ngModel)]="stock.selectedExchange" class="form-control" >
 						<option *ngFor="let exchange of exchanges" [ngValue]="exchange._id">
 								{{exchange.name}}
@@ -44,7 +46,7 @@
 	          	</div>
 	          	<div class="form-group input-group">
 		            <span class="input-group-addon"><i class="glyphicon glyphicon-date"></i></span>
-		            <input class="form-control" type="text" name='marketprice' placeholder="Cash Market Price"	 [(ngModel)]="stock.marketprice" required />
+		            <input class="form-control" type="text" name='marketprice' placeholder="Cash Market Price"	 [(ngModel)]="stock.marketprice" required OnlyNumber="true" maxlength="4"/>
 	          	</div>
 	          	<div class="form-group">
 					<button type="button" class="btn btn-danger btn-block"

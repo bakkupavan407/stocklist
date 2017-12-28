@@ -1,10 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 // import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { AgGridModule }  from "ag-grid-angular";
+import { NgDatepickerModule } from 'ng2-datepicker';
+
+// cutsom directives
+import { OnlyNumber } from './_directives/onlynumber.directive';
 
 import { AuthenticationService } from './_services/authentication.service';
 import { GetDataService } from './_services/getdata.service';
@@ -55,6 +59,7 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     InputText,
+    OnlyNumber,
     LogInComponent,
     StockListComponent,
     StockEntryComponent,
@@ -69,6 +74,8 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     ChartsModule,
+    ReactiveFormsModule,
+    NgDatepickerModule,
     AgGridModule.withComponents([ ]),
     RouterModule.forRoot(
       appRoutes,

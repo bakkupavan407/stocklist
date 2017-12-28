@@ -1,64 +1,70 @@
 <div class="container-fluid">
   <div class="row">
-      <div id="user-filter-form-container" class="col-lg-12">
-      	<div class="row">
-      		<div class="col-lg-4">
-      			<form action="" id="user-filter-form-container">
-			          <div class="row">
-			            <div class="col-lg-12">
-			              <h4 class="dashboard-head">Select Filters</h4>
-			            </div>
-			          </div>
-			          <div class="form-group input-group">
-			            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-			            <input class="form-control" type="date" name='fromdate' placeholder="From Date"
-			              [(ngModel)]="filter.fromdate"/>
-			          </div>
-			          <div class="form-group input-group">
-			            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-			            <input class="form-control" type="date" name='todate' placeholder="To Date"
-			              [(ngModel)]="filter.todate"/>
-			          </div>
-			          <div class="form-group">
-			          		<select name="selectExchanges" [(ngModel)]="filter.selectedExchange" class="form-control" >
-								<option *ngFor="let exchange of exchanges" [ngValue]="exchange._id">
-										{{exchange.name}}
-								</option>
-							</select>
-			          	</div>
-			          	<div class="form-group">
-			          		<select name="selectedSecurity" [(ngModel)]="filter.selectedSecurity" class="form-control" >
-								<option *ngFor="let security of securities" [ngValue]="security._id">
-										{{security.securityname}}
-								</option>
-							</select>
-			          	</div>
-			      		
-			          <div class="form-group">
-			            <button type="button" class="btn btn-danger btn-block"
-			              (click)="btnFilterGo()">
-			              Go
-			            </button>
-			          </div>
-			        </form>
-      		</div>
-      		<div class="col-lg-8" *ngIf="loadChart">
-			    <div style="display: block;">
-				    <canvas baseChart width="400" height="280"
-		                [datasets]="lineChartData"
-		                [labels]="lineChartLabels"
-		                [options]="lineChartOptions"
-		                [colors]="lineChartColors"
-		                [legend]="lineChartLegend"
-		                [chartType]="lineChartType"
-		                (chartHover)="chartHovered($event)"
-		                (chartClick)="chartClicked($event)">
-	                </canvas>
-			    </div>
-      		</div>
-
-      	</div>
-              
-      </div>  
+    <div id="filter-form-container" class="col-lg-12">
+      <div class="row">
+        <div class="col-lg-2">
+          <form action="" id="filter-form">
+            <div class="row">
+              <div class="col-lg-12">
+                <h6 class="dashboard-head">Stock Data</h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <div *ngIf="showErrorMsg" class="alert alert-danger">
+                  {{showErrorMsg}}
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div>From Date</div>
+              <ng-datepicker [(ngModel)]="filter.fromdate" [options]="options" name="fromdate"
+              style="position: absolute; z-index: 99;"></ng-datepicker>
+              <!-- <input class="form-control" type="date" name='fromdate' placeholder="From Date" 
+              [(ngModel)]="filter.fromdate"/> -->
+            </div>
+            <div class="form-group">
+              <div style="margin-top: 35px;">To Date</div>
+              <ng-datepicker [(ngModel)]="filter.todate" [options]="options" name="todate"
+              style="position: absolute; z-index: 9;"></ng-datepicker>
+              <!-- <input class="form-control" type="date" name='todate' placeholder="To Date" [(ngModel)]="filter.todate" /> -->
+            </div>
+            <div class="form-group">
+              <div style="margin-top: 40px;">Select Exchange</div>
+              <select name="selectExchanges" [(ngModel)]="filter.selectedExchange" (change)="setSelected($event.target)"  class="form-control">
+                <option *ngFor="let exchange of exchanges" [ngValue]="exchange._id">
+                  {{exchange.name}}
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              Select Security
+              <select name="selectedSecurity" [(ngModel)]="filter.selectedSecurity" (change)="setSelected($event.target)" class="form-control">
+                <option *ngFor="let security of securities" [ngValue]="security._id">
+                  {{security.securityname}}
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <button type="button" class="btn btn-danger btn-block" (click)="btnFilterGo()">
+                Go
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="col-lg-10" *ngIf="!loadChart">
+          <div class="well no-chart-message">
+             <h6>Please select From Date, To Date, Exchange and Security to see stock data in charts.</h6>   
+          </div>
+        </div>
+        <div class="col-lg-10" *ngIf="loadChart">
+          <div style="display: block;">
+            <!-- width="400" height="240" of below canvas element. commente for future purpose -->
+            <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
