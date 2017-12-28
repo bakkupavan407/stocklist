@@ -53,15 +53,14 @@ export class LogInComponent implements OnInit {
     });
   }
 
-  public makeDefaultBtn(element) {
-    element.textContent = "Login";
-    element.disabled = false;
-  }
+  //  (click)="btnClickLogin($event.target, 'Logging In ...')"
+  // public makeDefaultBtn(element) {
+  //   element.textContent = "Login";
+  //   element.disabled = false;
+  // }
 
-	public btnClickLogin(element, text):void {
+	public btnClickLogin():void {
     if(this.loginForm.valid) {
-      element.textContent = text;
-      element.disabled = true;
 
       this.username = this.user.email;
       this.password = this.user.password;
@@ -76,7 +75,6 @@ export class LogInComponent implements OnInit {
                       this.router.navigate(['/home']);
                     }
                 } else {
-                  this.makeDefaultBtn(element);
                   this.error = "Please login with valid details.";
                 }
             });
