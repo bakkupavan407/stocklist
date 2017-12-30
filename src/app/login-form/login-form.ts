@@ -59,6 +59,12 @@ export class LogInComponent implements OnInit {
   //   element.disabled = false;
   // }
 
+  keyDownFunction(event) {
+    if(event.keyCode == 13) {
+      this.btnClickLogin();
+    }
+  }
+
 	public btnClickLogin():void {
     if(this.loginForm.valid) {
 

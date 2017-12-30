@@ -2,7 +2,7 @@
   <div class="row">
       <div id="logo-container"></div>
       <div id="login-form-container" class="col-sm-12 col-md-10 col-md-offset-1 col-lg-4 col-lg-offset-4">
-        <form (ngSubmit)="btnClickLogin()" [formGroup]="loginForm">
+        <form (keydown)="keyDownFunction($event)" (ngSubmit)="btnClickLogin()" [formGroup]="loginForm">
           <div class="row">
             <div class="col-lg-12">
               <h2>Login</h2>

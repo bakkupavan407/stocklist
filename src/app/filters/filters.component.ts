@@ -113,23 +113,46 @@ export class FiltersComponent implements OnInit {
         }
 	}
 
+	keyDownFunction(event) {
+    if(event.keyCode == 13) {
+      this.btnFilterGo();
+    }
+  }
+
 	public btnFilterGo(): void {
 		// this.lineChartData = [];
 		// this.lineChartLabels = [];
-		// this.chart.chart.config.data.labels = [];
+		// if(this.chart) {
+		// 	this.chart.chart.config.data.labels = [];
+		// }
 		if(this.filter.fromdate && this.filter.todate && (this.filter.selectedExchange !== 1) && (this.filter.selectedSecurity !== 1)) {
 			var fromdate = new Date(this.filter.fromdate);
 			var todate = new Date(this.filter.todate);
+
+			var fromDay = fromdate.getDate();
+			var fromMonth = fromdate.getMonth() + 1;
+			var fromFinalDay = fromDay.toString().length === 1 ? "0" + fromDay : fromDay;
+			var fromFinalMonth = fromMonth.toString().length === 1 ? "0" + fromMonth : fromMonth;
+
+			var toDay = todate.getDate();
+			var toMonth = todate.getMonth() + 1;
+			var toFinalDay = toDay.toString().length === 1 ? "0" + toDay : toDay;
+			var toFinalMonth = toMonth.toString().length === 1 ? "0" + toMonth : toMonth;
+
 			var labelFromDate = fromdate.getDate() + "/" + ( fromdate.getMonth() + 1) + "/" + fromdate.getFullYear();
 			var labelToDate = todate.getDate() + "/" + ( todate.getMonth() + 1) + "/" + todate.getFullYear();
-			this.filter.fromdate = fromdate.getFullYear() + "/" + ( fromdate.getMonth() + 1) + "/" + fromdate.getDate();
-			this.filter.todate = todate.getFullYear() + "/" + ( todate.getMonth() + 1) + "/" + todate.getDate();
+			
 			// this.filter.fromdate = this.filter.fromdate.split("-").join("/");
 			// this.filter.todate = this.filter.todate.split("-").join("/");
+
+			this.filter.fromdate = fromdate.getFullYear() + "/" + fromFinalMonth + "/" + fromFinalDay;
+			this.filter.todate = todate.getFullYear() + "/" + toFinalMonth + "/" + toFinalDay;
 
 			this.filterservice.getfilterdata(this.filter)
 			.subscribe(result => {
 				if(result.length > 0) {
+					this.ds = [];
+					this.ps = [];
 					result.forEach(item=> {
 						// let price = item.marketprice;
 						// let mydate = new Date(item.date);
@@ -137,12 +160,13 @@ export class FiltersComponent implements OnInit {
 	                  	this.ds.push(item.date);
 	                  	this.ps.push(item.marketprice);
 	                });
-
 					this.lineChartData = [
 						{data: this.ps, label: this.labelSecurity + " on " + this.labelExchange + " from " + labelFromDate + " to " + labelToDate}
 					];
 	    			this.lineChartLabels = this.ds;
-					// this.chart.chart.config.data.labels = this.ds;
+	    			if(this.chart) {
+	    				this.chart.chart.config.data.labels = this.ds;
+	    			}
 					this.loadChartOptions();
 					this.loadChart = true;
 				} else {
@@ -198,6 +222,38 @@ export class FiltersComponent implements OnInit {
 
 	public btnClickLogout(): void {
 		localStorage.removeItem('currentUser');
+	}
+
+	public defaultFromDate(event) {
+		var period = event.target.innerText;
+		var defaultdate = new Date();
+		var d = new Date();
+
+		if(period === "1M") {
+			d.setMonth(d.getMonth() - 1);
+		}
+
+		if(period === "3M") {
+			d.setMonth(d.getMonth() - 3);
+		}
+
+		if(period === "6M") {
+			d.setMonth(d.getMonth() - 6);
+		}
+
+		if(period === "1Y") {
+			d.setFullYear(d.getFullYear() - 1);
+		}
+
+		if(period === "3Y") {
+			d.setFullYear(d.getFullYear() - 3);
+		}
+
+		if(period === "5Y") {
+			d.setFullYear(d.getFullYear() - 5);
+		}
+
+		this.filter.fromdate = d;
 	}
 
 }

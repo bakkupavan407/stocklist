@@ -3,3 +3,31 @@
     text-align: center;
     padding: 100px;
 }
+
+#filterLeftNav {
+	padding-bottom: 180px;
+}
+
+.filter-navs {
+	background-color: #F6F6F6;
+    padding: 7px;
+}
+
+.default-filter-period .btn-default{
+	background-color: #d9534f;
+	border-color: #d9534f;
+	color: #fff;
+}
+
+#defaultFilterPeriod a{
+	color: #000;
+	text-decoration: underline;
+    margin-right: 11px;
+    margin-left: 3px;
+    cursor: pointer;
+}
+
+#filterRightNav {
+	padding-top: 300px;
+    padding-bottom: 260px;
+}

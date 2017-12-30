@@ -2,8 +2,8 @@
   <div class="row">
     <div id="filter-form-container" class="col-lg-12">
       <div class="row">
-        <div class="col-lg-2">
-          <form action="" id="filter-form">
+        <div id="filterLeftNav" class="col-lg-2 filter-navs">
+          <form (keydown)="keyDownFunction($event)" action="" id="filter-form">
             <div class="row">
               <div class="col-lg-12">
                 <h6 class="dashboard-head">Stock Data</h6>
@@ -49,20 +49,40 @@
               <button type="button" class="btn btn-danger btn-block" (click)="btnFilterGo()">
                 Go
               </button>
+
+              <div id="defaultFilterPeriod" class="default-filter-period">
+
+                  <div id="defaultheading">
+                    <h6>You can set FromDate from here</h6>
+                    <!-- <h6>Or Select from date period here</h6> -->
+                  </div>
+
+                  <a (click)="defaultFromDate($event)">1M</a>
+                  <a (click)="defaultFromDate($event)">3M</a>
+                  <a (click)="defaultFromDate($event)">6M</a>
+                  <a (click)="defaultFromDate($event)">1Y</a>
+                  <a (click)="defaultFromDate($event)">3Y</a>
+                  <a (click)="defaultFromDate($event)">5Y</a>
+
+              </div>
+
             </div>
           </form>
         </div>
-        <div class="col-lg-10" *ngIf="!loadChart">
+        <div class="col-lg-8" *ngIf="!loadChart">
           <div class="well no-chart-message">
              <h6>Please select From Date, To Date, Exchange and Security to see stock data in charts.</h6>   
           </div>
         </div>
-        <div class="col-lg-10" *ngIf="loadChart">
+        <div class="col-lg-8" *ngIf="loadChart">
           <div style="display: block;">
             <!-- width="400" height="240" of below canvas element. commente for future purpose -->
             <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
             </canvas>
           </div>
+        </div>
+        <div id="filterRightNav" class="col-lg-2 filter-navs">
+          
         </div>
       </div>
     </div>

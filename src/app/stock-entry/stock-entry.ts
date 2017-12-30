@@ -59,6 +59,12 @@ export class StockEntryComponent {
             });
 	}
 
+    keyDownFunction(event) {
+        if(event.keyCode == 13) {
+          this.btnClickSaveStockList();
+        }
+      }
+
 	public btnClickSaveStockList():void {
         var stockdate = new Date(this.stock.date);
         this.stock.date = stockdate.getFullYear() + "/" + ( stockdate.getMonth() + 1) + "/" + stockdate.getDate();
